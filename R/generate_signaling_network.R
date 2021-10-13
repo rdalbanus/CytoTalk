@@ -64,7 +64,11 @@ compute_kolmogorov_smirnov <- function(dir_out) {
     lst_counts <- tapply(vec_counts, vec_param, c)
 
     # detect and register cores
-    cores <- max(1, parallel::detectCores() - 2)
+    if (is.null(cores)) {
+        message("No number of cores were specified - using all possible.")
+        cores <- max(1, parallel::detectCores() - 2)
+    }
+    
     doParallel::registerDoParallel(cores = cores)
 
     # parallel loop for Kolmogorov-Smirnov test

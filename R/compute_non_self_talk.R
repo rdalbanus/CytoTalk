@@ -44,7 +44,11 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
     ligands_valid <- ligands[valid,]
 
     # detect and register cores
-    cores <- max(1, parallel::detectCores() - 2)
+    if (is.null(cores)) {
+        message("No number of cores were specified - using all possible.")
+        cores <- max(1, parallel::detectCores() - 2)
+    }
+    
     doParallel::registerDoParallel(cores = cores)
 
     # parallel loop for MI distances
