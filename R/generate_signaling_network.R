@@ -67,6 +67,8 @@ compute_kolmogorov_smirnov <- function(dir_out) {
     if (is.null(cores)) {
         message("No number of cores were specified - using all possible.")
         cores <- max(1, parallel::detectCores() - 2)
+    } else {
+        message(sprintf("Computing K-S tests with %s cores"), cores)
     }
     
     doParallel::registerDoParallel(cores = cores)
