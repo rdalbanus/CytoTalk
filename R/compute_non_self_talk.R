@@ -5,7 +5,9 @@ noise <- function(n) {
 }
 
 #' @noRd
-compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
+compute_non_self_talk_type <- function(
+    ligands, type, letter, dir_in, dir_out, cores=NULL
+    ) {
     # format filename, join to full path
     fpath_scrna <- file.path(dir_in, sprintf("scRNAseq_%s.csv", type))
     fpath_out <- file.path(dir_out, sprintf("NonSelfTalkSco_Typ%s.txt", letter))
@@ -48,7 +50,7 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
         message("No number of cores were specified - using all possible.")
         cores <- max(1, parallel::detectCores() - 2)
     } else {
-        message(sprintf("Computing with %s cores"), cores)
+        message(sprintf("Computing with %s cores", cores))
     }
     
     doParallel::registerDoParallel(cores = cores)
@@ -106,8 +108,10 @@ compute_non_self_talk_type <- function(ligands, type, letter, dir_in, dir_out) {
 #' @param dir_out Output directory
 #' @return None
 #' @export
-compute_non_self_talk <- function(ligands, type_a, type_b, dir_in, dir_out) {
-    compute_non_self_talk_type(ligands, type_a, "A", dir_in, dir_out)
-    compute_non_self_talk_type(ligands, type_b, "B", dir_in, dir_out)
+compute_non_self_talk <- function(
+    ligands, type_a, type_b, dir_in, dir_out, cores=NULL
+    ) {
+    compute_non_self_talk_type(ligands, type_a, "A", dir_in, dir_out, cores)
+    compute_non_self_talk_type(ligands, type_b, "B", dir_in, dir_out, cores)
     NULL
 }

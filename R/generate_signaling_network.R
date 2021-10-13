@@ -36,7 +36,7 @@ generate_summary <- function(dir_out) {
 }
 
 #' @noRd
-compute_kolmogorov_smirnov <- function(dir_out) {
+compute_kolmogorov_smirnov <- function(dir_out, cores=NULL) {
     # format filepaths
     fpath_edge <- file.path(dir_out, "PCSF_EdgeOccurance.txt")
     fpath_pval <- file.path(dir_out, "PCSF_EdgeTestValues.txt")
@@ -68,7 +68,7 @@ compute_kolmogorov_smirnov <- function(dir_out) {
         message("No number of cores were specified - using all possible.")
         cores <- max(1, parallel::detectCores() - 2)
     } else {
-        message(sprintf("Computing K-S tests with %s cores"), cores)
+        message(sprintf("Computing K-S tests with %s cores", cores))
     }
     
     doParallel::registerDoParallel(cores = cores)
@@ -111,8 +111,8 @@ compute_kolmogorov_smirnov <- function(dir_out) {
 #' @param dir_out Output directory
 #' @return None
 #' @export
-generate_signaling_network <- function(dir_out) {
+generate_signaling_network <- function(dir_out, cores=NULL) {
     generate_summary(dir_out)
-    compute_kolmogorov_smirnov(dir_out)
+    compute_kolmogorov_smirnov(dir_out, cores)
     NULL
 }

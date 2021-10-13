@@ -85,10 +85,10 @@ compute_mutual_information_type <- function(dir_out, type) {
 compute_mutual_information <- function(dir_out, cores=NULL) {
     # register cores for parallel computation
     if (is.null(cores)) {
-        message("No number of cores were specified - using all possible.")
+        message("No number of cores were specified for MI - using all possible.")
         cores <- max(1, parallel::detectCores() - 2)
     } else {
-        message(sprintf("Computing mutual information with %s cores"), cores)
+        message(sprintf("Computing MI with %s cores", cores))
         cores <- max(1, cores)
     }
     doParallel::registerDoParallel(cores = cores)
