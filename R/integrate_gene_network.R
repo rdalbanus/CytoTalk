@@ -381,7 +381,7 @@ write_integrated_net <- function(dir_out) {
     fpath_node_b <- file.path(dir_out, "GeneNodePrizeB.txt")
     fpath_edge_a <- file.path(dir_out, "MI_TypA.txt")
     fpath_edge_b <- file.path(dir_out, "MI_TypB.txt")
-    fpath_edge_ct <- file.path(dir_out, "CrossTalk_TypATypB.txt")
+    fpath_edge_ct <- file.path(dir_out, "Crosstalk_TypATypB.txt")
     fpath_out <- file.path(dir_out, "IntegratedNetwork.cfg")
 
     # stop if input file doesn't exist,
